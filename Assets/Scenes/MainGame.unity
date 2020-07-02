@@ -218,7 +218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158373007}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.414, y: 0.778, z: 0}
+  m_LocalPosition: {x: -1.253, y: 0.759, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -237,9 +237,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSpeed: {x: 0, y: 0}
-  speed: {x: 3, y: 3}
+  speed: {x: 1, y: 1}
   direction: {x: 1, y: 0}
-  acceleration: 0.3
+  acceleration: 0.01
   imageAngleOffSet: 0
 --- !u!50 &158373012
 Rigidbody2D:
