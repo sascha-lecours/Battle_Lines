@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background_bottom
+    uniqueID: 3953652855
+    locked: 0
+  - name: Background_Accent_bottom
+    uniqueID: 2726508181
+    locked: 0
+  - name: Background_Accent_top
+    uniqueID: 4065237765
+    locked: 0
+  - name: Units
+    uniqueID: 165782277
+    locked: 0
