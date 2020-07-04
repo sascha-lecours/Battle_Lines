@@ -16,6 +16,7 @@ public class MoveScript : MonoBehaviour
     public float imageAngleOffSet = 0; // Number of degrees to rotate image. 0 assumes right-facing image.
 
     #endregion
+
     #region private Properties
     private Vector2 curSpeed = new Vector2(0f, 0f);
     private Vector2 movement;
