@@ -375,7 +375,7 @@ MonoBehaviour:
   kPrefix: Archer
   walkSpeed: 1
   attackInterval: 1
-  initialIdleTime: 30
+  initialIdleTime: 1
   alwaysAttack: 1
   hurtSounds: []
   hurtVolume: 1

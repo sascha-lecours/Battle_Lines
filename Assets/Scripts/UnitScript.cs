@@ -102,19 +102,10 @@ public class UnitScript : MonoBehaviour
     void EnterState(State state)
     {
         ExitState();
-        switch (state) // ##TDOD: Expand
+        switch (state)
         {
             case State.Idle:
                 animator.Play(kIdleAnim);
-                if(timeInState >= initialIdleTime)
-                {
-                    if (alwaysAttack)
-                    {
-                        EnterState(State.Attacking); 
-                        break;
-                    }
-                    EnterState(State.Walking);
-                }
                 break;
             case State.Walking:
                 animator.Play(kWalkingAnim);
@@ -138,7 +129,15 @@ public class UnitScript : MonoBehaviour
 
             case State.Idle:
                 // Transition to start moving or attacking
-                EnterState(State.Attacking);
+                if (timeInState >= initialIdleTime)
+                {
+                    if (alwaysAttack)
+                    {
+                        EnterState(State.Attacking);
+                        break;
+                    }
+                    EnterState(State.Walking);
+                }
                 break;
 
             case State.Walking:
