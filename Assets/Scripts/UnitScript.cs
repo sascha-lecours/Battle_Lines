@@ -71,6 +71,9 @@ public class UnitScript : MonoBehaviour
         kWalkingAnim = kPrefix + kWalkingAnim;
         kHitAnim = kPrefix + kHitAnim;
         kDyingAnim = kPrefix + kDyingAnim;
+
+        Vector3 defaultScale = transform.localScale;
+        transform.localScale = new Vector3(defaultScale.x * facing, defaultScale.y, defaultScale.z);
     }
 
     // Update is called once per frame
@@ -104,7 +107,8 @@ public class UnitScript : MonoBehaviour
     void StopMoving()
     {
         // Decelerates
-        ms.direction = new Vector2(0, 0);
+        ms.StopFast();
+        // ms.direction = new Vector2(0, 0);
     }
 
     void WalkForward()

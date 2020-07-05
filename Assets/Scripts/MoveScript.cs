@@ -23,6 +23,12 @@ public class MoveScript : MonoBehaviour
     private Rigidbody2D rigidbodyComponent;
     #endregion
 
+    public void StopFast()
+    {
+        curSpeed.x = 0;
+        curSpeed.y = 0;
+    }
+
     private void Start()
     {
         curSpeed.x = startSpeed.x * direction.x;
@@ -36,8 +42,10 @@ public class MoveScript : MonoBehaviour
         curSpeed.y = Mathf.Lerp(curSpeed.y, speed.y * direction.y, (acceleration * Time.deltaTime));
 
         movement = new Vector2(curSpeed.x, curSpeed.y);
-        float angle = (Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg) - imageAngleOffSet;
-        transform.localEulerAngles = new Vector3(0, 0, angle);
+
+        // Smooth direction changing - not needed.
+        // float angle = (Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg) - imageAngleOffSet;
+        // transform.localEulerAngles = new Vector3(0, 0, angle);
     }
 
     void FixedUpdate()
