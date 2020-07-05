@@ -5,6 +5,13 @@ using UnityEngine;
 public class UnitScript : MonoBehaviour
 {
     #region Public Properties
+    public string kPrefix = "";
+
+    public float walkSpeed = 1f;
+    public float attackInterval = 1f;
+    public float initialIdleTime = 0.5f;
+    public bool alwaysAttack = false;
+
 
     public AudioClip[] hurtSounds;
     public float hurtVolume = 1f;
@@ -15,7 +22,7 @@ public class UnitScript : MonoBehaviour
     public AudioClip[] deathSounds;
     public float deathVolume = 1f;
 
-    public string kPrefix = "";
+    
     
 
     #endregion
@@ -30,11 +37,11 @@ public class UnitScript : MonoBehaviour
         get { return Time.time - stateStartTime; }
     }
 
-    public string kIdleAnim = "Idle";
-    public string kAttackingAnim = "Attack";
-    public string kWalkingAnim = "Walk";
-    public string kHitAnim = "Hit";
-    public string kDyingAnim = "Death";
+    private string kIdleAnim = "Idle";
+    private string kAttackingAnim = "Attack";
+    private string kWalkingAnim = "Walk";
+    private string kHitAnim = "Hit";
+    private string kDyingAnim = "Death";
 
 
     enum State
@@ -54,6 +61,12 @@ public class UnitScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+
+        kIdleAnim = kPrefix + kIdleAnim;
+        kAttackingAnim = kPrefix + kAttackingAnim;
+        kWalkingAnim = kPrefix + kWalkingAnim;
+        kHitAnim = kPrefix + kHitAnim;
+        kDyingAnim = kPrefix + kDyingAnim;
     }
 
     // Update is called once per frame
@@ -93,7 +106,15 @@ public class UnitScript : MonoBehaviour
         {
             case State.Idle:
                 animator.Play(kIdleAnim);
-                
+                if(timeInState >= initialIdleTime)
+                {
+                    if (alwaysAttack)
+                    {
+                        EnterState(State.Attacking); 
+                        break;
+                    }
+                    EnterState(State.Walking);
+                }
                 break;
             case State.Walking:
                 animator.Play(kWalkingAnim);

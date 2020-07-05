@@ -372,6 +372,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0fc6bdbbf4bc146a9dddafbc2ead9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kPrefix: Archer
+  walkSpeed: 1
+  attackInterval: 1
+  initialIdleTime: 30
+  alwaysAttack: 1
   hurtSounds: []
   hurtVolume: 1
   attackSounds: []
@@ -380,12 +385,6 @@ MonoBehaviour:
   spawnVolume: 1
   deathSounds: []
   deathVolume: 1
-  kPrefix: 
-  kIdleAnim: Idle
-  kAttackingAnim: ArcherAttack
-  kWalkingAnim: Walk
-  kHitAnim: Walk
-  kDyingAnim: Death
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
