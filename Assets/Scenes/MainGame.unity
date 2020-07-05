@@ -240,8 +240,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: {x: 0, y: 0}
   speed: {x: 1, y: 1}
-  direction: {x: 1, y: 0}
-  acceleration: 0.01
+  direction: {x: 0, y: 0}
+  acceleration: 0.3
   imageAngleOffSet: 0
 --- !u!50 &158373012
 Rigidbody2D:
@@ -372,8 +372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0fc6bdbbf4bc146a9dddafbc2ead9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  facing: 1
   kPrefix: Archer
-  walkSpeed: 1
   attackInterval: 3
   initialIdleTime: 1
   alwaysAttack: 1

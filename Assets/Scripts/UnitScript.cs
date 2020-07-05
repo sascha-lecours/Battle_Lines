@@ -5,12 +5,14 @@ using UnityEngine;
 public class UnitScript : MonoBehaviour
 {
     #region Public Properties
+    public int facing = 1; // 1: faces rightward. -1 = leftward.
     public string kPrefix = "";
 
-    public float walkSpeed = 1f;
+    // public float walkSpeed = 1f; // Might just use movescript values for this
     public float attackInterval = 1f;
     public float initialIdleTime = 0.5f;
     public bool alwaysAttack = false;
+
 
 
     public AudioClip[] hurtSounds;
@@ -30,6 +32,7 @@ public class UnitScript : MonoBehaviour
     #region Private Properties
     Animator animator;
     AudioSource audioSource;
+    MoveScript ms;
 
     float stateStartTime;
     float timeInState
@@ -61,6 +64,7 @@ public class UnitScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        ms = GetComponent<MoveScript>();
 
         kIdleAnim = kPrefix + kIdleAnim;
         kAttackingAnim = kPrefix + kAttackingAnim;
@@ -89,6 +93,25 @@ public class UnitScript : MonoBehaviour
         return animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
     }
 
+
+    void AttackEvent()
+    {
+        Debug.Log("Attack happened");
+
+        // TODO: Spawn attack!
+    }
+
+    void StopMoving()
+    {
+        // Decelerates
+        ms.direction = new Vector2(0, 0);
+    }
+
+    void WalkForward()
+    {
+        ms.direction = new Vector2(facing, 0);
+    }
+
     void SetOrKeepState(State state)
     {
         if (this.state == state) return;
@@ -99,10 +122,6 @@ public class UnitScript : MonoBehaviour
     {
     }
 
-    void AttackEvent()
-    {
-        Debug.Log("Attack happened");
-    }
 
     void EnterState(State state)
     {
@@ -111,12 +130,15 @@ public class UnitScript : MonoBehaviour
         {
             case State.Idle:
                 animator.Play(kIdleAnim);
+                StopMoving();
                 break;
             case State.Walking:
                 animator.Play(kWalkingAnim);
+                WalkForward();
                 break;
             case State.Attacking:
                 animator.Play(kAttackingAnim);
+                StopMoving();
                 break;
             case State.Dying:
                 animator.Play(kDyingAnim);
