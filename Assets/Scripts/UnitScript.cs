@@ -84,6 +84,11 @@ public class UnitScript : MonoBehaviour
     }
     #endregion
     #region Private Methods
+    bool AnimatorIsPlaying()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
+    }
+
     void SetOrKeepState(State state)
     {
         if (this.state == state) return;
@@ -142,10 +147,20 @@ public class UnitScript : MonoBehaviour
 
             case State.Walking:
                 // Transition to attacking, maybe go idle if encounter obstacle?
-                break;
+                if (alwaysAttack && timeInState >= attackInterval)
+                {
+                    EnterState(State.Attacking);
+                    break;
+                }
+                // TODO: Code here to detect if target is in range and attack for those not on auto-fire
+                    break;
 
             case State.Attacking:
-                
+                // If attack animation played out fully, back to walking.
+                if (!AnimatorIsPlaying())
+                {
+                    EnterState(State.Walking);
+                }
                 break;
 
             case State.Dying:

@@ -374,7 +374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kPrefix: Archer
   walkSpeed: 1
-  attackInterval: 1
+  attackInterval: 3
   initialIdleTime: 1
   alwaysAttack: 1
   hurtSounds: []
