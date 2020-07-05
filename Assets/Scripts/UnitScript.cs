@@ -15,13 +15,11 @@ public class UnitScript : MonoBehaviour
     public AudioClip[] deathSounds;
     public float deathVolume = 1f;
 
-    public string kIdleAnim = "Idle";
-    public string kAttackingAnim = "Attack";
-    public string kWalkingAnim = "Walk";
-    public string kHitAnim = "Walk";
-    public string kDyingAnim = "Death";
+    public string kPrefix = "";
+    
 
     #endregion
+
     #region Private Properties
     Animator animator;
     AudioSource audioSource;
@@ -32,7 +30,12 @@ public class UnitScript : MonoBehaviour
         get { return Time.time - stateStartTime; }
     }
 
-    
+    public string kIdleAnim = "Idle";
+    public string kAttackingAnim = "Attack";
+    public string kWalkingAnim = "Walk";
+    public string kHitAnim = "Hit";
+    public string kDyingAnim = "Death";
+
 
     enum State
     {
@@ -44,6 +47,7 @@ public class UnitScript : MonoBehaviour
     State state;
 
     #endregion
+
     #region MonoBehaviour Events
     // Start is called before the first frame update
     void Start()
@@ -77,6 +81,11 @@ public class UnitScript : MonoBehaviour
     {
     }
 
+    void AttackEvent()
+    {
+        Debug.Log("Attack happened");
+    }
+
     void EnterState(State state)
     {
         ExitState();
@@ -108,6 +117,7 @@ public class UnitScript : MonoBehaviour
 
             case State.Idle:
                 // Transition to start moving or attacking
+                EnterState(State.Attacking);
                 break;
 
             case State.Walking:
@@ -115,7 +125,7 @@ public class UnitScript : MonoBehaviour
                 break;
 
             case State.Attacking:
-                // Play out an attack
+                
                 break;
 
             case State.Dying:

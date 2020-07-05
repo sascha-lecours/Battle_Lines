@@ -380,8 +380,9 @@ MonoBehaviour:
   spawnVolume: 1
   deathSounds: []
   deathVolume: 1
+  kPrefix: 
   kIdleAnim: Idle
-  kAttackingAnim: Attack
+  kAttackingAnim: ArcherAttack
   kWalkingAnim: Walk
   kHitAnim: Walk
   kDyingAnim: Death
