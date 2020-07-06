@@ -53,3 +53,6 @@ TagManager:
   - name: Units
     uniqueID: 165782277
     locked: 0
+  - name: Shots
+    uniqueID: 2327114583
+    locked: 0

@@ -14,6 +14,7 @@ public class MoveScript : MonoBehaviour
     public Vector2 direction = new Vector2(-1, 0);
     public float acceleration = 1f;
     public float imageAngleOffSet = 0; // Number of degrees to rotate image. 0 assumes right-facing image.
+    public bool lockedRotation = true; // Makes object rotate 360 degrees to face heading. set false for shots, basically.
 
     #endregion
 
@@ -43,9 +44,12 @@ public class MoveScript : MonoBehaviour
 
         movement = new Vector2(curSpeed.x, curSpeed.y);
 
-        // Smooth direction changing - not needed.
-        // float angle = (Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg) - imageAngleOffSet;
-        // transform.localEulerAngles = new Vector3(0, 0, angle);
+        if (!lockedRotation)
+        {
+            float angle = (Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg) - imageAngleOffSet;
+            transform.localEulerAngles = new Vector3(0, 0, angle);
+        }
+
     }
 
     void FixedUpdate()

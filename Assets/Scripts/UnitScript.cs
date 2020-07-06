@@ -13,6 +13,9 @@ public class UnitScript : MonoBehaviour
     public float initialIdleTime = 0.5f;
     public bool alwaysAttack = false;
 
+    public Transform attackTransform;
+    public Vector3 attackOffset = new Vector3(0.05f, 0, 0);
+    public int attackDamage = 1;
 
 
     public AudioClip[] hurtSounds;
@@ -33,6 +36,9 @@ public class UnitScript : MonoBehaviour
     Animator animator;
     AudioSource audioSource;
     MoveScript ms;
+    HealthScript hs;
+
+    private int myTeam;
 
     float stateStartTime;
     float timeInState
@@ -45,7 +51,7 @@ public class UnitScript : MonoBehaviour
     private string kWalkingAnim = "Walk";
     private string kHitAnim = "Hit";
     private string kDyingAnim = "Death";
-
+    
 
     enum State
     {
@@ -65,6 +71,9 @@ public class UnitScript : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         ms = GetComponent<MoveScript>();
+        hs = GetComponent<HealthScript>();
+
+        myTeam = hs.team;
 
         kIdleAnim = kPrefix + kIdleAnim;
         kAttackingAnim = kPrefix + kAttackingAnim;
@@ -99,16 +108,20 @@ public class UnitScript : MonoBehaviour
 
     void AttackEvent()
     {
-        Debug.Log("Attack happened");
+        var newAttack = Instantiate(attackTransform) as Transform;
+        newAttack.position = transform.position + new Vector3(attackOffset.x*facing, attackOffset.y, attackOffset.z);
+        var newAttackMoveScript = newAttack.GetComponent<MoveScript>();
+        newAttackMoveScript.direction = new Vector2(facing, 0); // TODO: this will need to eventually handle vertical attacks too.
 
-        // TODO: Spawn attack!
+        // TODO: Later on, this will need to look for something more generic than shot script probably
+        var newAttackShotScript = newAttack.GetComponent<ShotScript>();
+        newAttackShotScript.team = myTeam;
+        newAttackShotScript.damage = attackDamage;
     }
 
     void StopMoving()
     {
-        // Decelerates
         ms.StopFast();
-        // ms.direction = new Vector2(0, 0);
     }
 
     void WalkForward()

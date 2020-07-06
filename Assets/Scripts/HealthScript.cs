@@ -12,11 +12,6 @@ public class HealthScript : MonoBehaviour
     public bool active = false;
     public bool manualActivation = false; // Used for bosses etc. to prevent activation by the usual method
     public bool immuneToShots = false;
-    public int fadeScore = 0;
-    public int damagedFadeScore = 0;
-    public int dieScore = 0;
-    public Sprite damagedSprite = null;
-    public bool cargoShip = false;
 
     public Transform deathExplosion;
 
@@ -66,11 +61,6 @@ public class HealthScript : MonoBehaviour
         else
         { //If not dead, return from white flash after interval
             Invoke("ResetMaterial", flashInterval);
-            if (damagedSprite != null)
-            {
-                sr.sprite = damagedSprite;
-            }
-
         }
     }
 
