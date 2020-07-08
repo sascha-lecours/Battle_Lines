@@ -13,11 +13,13 @@ public class ShotScript : MonoBehaviour
     public float speedRotate = 0f;
 
     public Transform destroyEffect = null;
+    public float timeToLive = 20f; // seconds
+
     private HealthScript myTargetHealthScript = null;
 
     void Start()
     {
-        Destroy(gameObject, 20); // 20sec
+        Destroy(gameObject, timeToLive);
     }
 
     private void Update()

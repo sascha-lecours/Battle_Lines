@@ -12,6 +12,7 @@ public class HealthScript : MonoBehaviour
     public bool active = false;
     public bool manualActivation = false; // Used for bosses etc. to prevent activation by the usual method
     public bool immuneToShots = false;
+    public bool dead = false;
 
     public Transform deathExplosion;
 
@@ -23,6 +24,7 @@ public class HealthScript : MonoBehaviour
     private float flashInterval = 0.1f;
     private float fadeLifetime = 0.5f; // Amount of time (s) after going offscreen to continue existing
     private int maxHp = 1;
+    private UnitScript unitScript;
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class HealthScript : MonoBehaviour
         matWhite = Resources.Load("flashWhite", typeof(Material)) as Material;
         matDefault = sr.material;
         maxHp = hp;
+        unitScript = GetComponent<UnitScript>();
     }
 
     void fadeAway() // No death explosion
@@ -47,6 +50,8 @@ public class HealthScript : MonoBehaviour
 
         hp -= damageCount;
         sr.material = matWhite; //Flash white
+        // return from white flash after interval
+        Invoke("ResetMaterial", flashInterval);
 
         if (hp <= 0)
         {
@@ -56,12 +61,11 @@ public class HealthScript : MonoBehaviour
                 var deathExplosionTransform = Instantiate(deathExplosion) as Transform;
                 deathExplosionTransform.position = transform.position;
             }
-            Destroy(gameObject);
-        }
-        else
-        { //If not dead, return from white flash after interval
-            Invoke("ResetMaterial", flashInterval);
-        }
+
+            dead = true;
+            unitScript.Die();
+        } 
+        
     }
 
     void ResetMaterial()
@@ -78,7 +82,7 @@ public class HealthScript : MonoBehaviour
     {
         // Is this a shot?
         ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();
-        if (shot != null && !immuneToShots)
+        if (shot != null && !immuneToShots && !dead)
         {
             // Avoid friendly fire
             if (shot.team != team)

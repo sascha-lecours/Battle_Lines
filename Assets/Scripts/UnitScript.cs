@@ -98,6 +98,11 @@ public class UnitScript : MonoBehaviour
         var i = Random.Range(0, soundArray.Length);
         AudioSource.PlayClipAtPoint(soundArray[i], transform.position, volume);
     }
+
+    public void Die()
+    {
+        EnterState(State.Dying);
+    }
     #endregion
     #region Private Methods
     bool AnimatorIsPlaying()
@@ -159,6 +164,7 @@ public class UnitScript : MonoBehaviour
                 break;
             case State.Dying:
                 animator.Play(kDyingAnim);
+                StopMoving();
                 break;
         }
 
@@ -203,7 +209,8 @@ public class UnitScript : MonoBehaviour
                 break;
 
             case State.Dying:
-                // DIE
+                // TODO: reduce sprite alpha gradually, and finally despawn entire object
+                StopMoving();
                 break;
 
         }
