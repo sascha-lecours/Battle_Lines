@@ -144,7 +144,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!82 &2376074482495352044
 AudioSource:
@@ -288,6 +288,7 @@ MonoBehaviour:
   active: 1
   manualActivation: 0
   immuneToShots: 0
+  dead: 0
   deathExplosion: {fileID: 0}
 --- !u!61 &975529308171840169
 BoxCollider2D:

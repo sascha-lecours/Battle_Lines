@@ -38,7 +38,7 @@ public class UnitScript : MonoBehaviour
     MoveScript ms;
     HealthScript hs;
 
-    private int myTeam;
+    public int myTeam;
 
     float stateStartTime;
     float timeInState
@@ -99,6 +99,11 @@ public class UnitScript : MonoBehaviour
         AudioSource.PlayClipAtPoint(soundArray[i], transform.position, volume);
     }
 
+    public void EnemyDetected() // Used to trigger range-limited attacks like melee attacks
+    {
+        if (state == State.Idle || state == State.Walking) EnterState(State.Attacking);
+    }
+
     public void Die()
     {
         EnterState(State.Dying);
@@ -118,7 +123,6 @@ public class UnitScript : MonoBehaviour
         var newAttackMoveScript = newAttack.GetComponent<MoveScript>();
         newAttackMoveScript.direction = new Vector2(facing, 0); // TODO: this will need to eventually handle vertical attacks too.
 
-        // TODO: Later on, this will need to look for something more generic than shot script probably
         var newAttackShotScript = newAttack.GetComponent<ShotScript>();
         newAttackShotScript.team = myTeam;
         newAttackShotScript.damage = attackDamage;
@@ -128,6 +132,8 @@ public class UnitScript : MonoBehaviour
     {
         ms.StopFast();
     }
+
+
 
     void WalkForward()
     {
