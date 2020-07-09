@@ -37,6 +37,7 @@ public class UnitScript : MonoBehaviour
     AudioSource audioSource;
     MoveScript ms;
     HealthScript hs;
+    Collider2D collider2d;
 
     public int myTeam;
 
@@ -72,6 +73,7 @@ public class UnitScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         ms = GetComponent<MoveScript>();
         hs = GetComponent<HealthScript>();
+        collider2d = GetComponent<Collider2D>();
 
         myTeam = hs.team;
 
@@ -170,6 +172,9 @@ public class UnitScript : MonoBehaviour
                 break;
             case State.Dying:
                 animator.Play(kDyingAnim);
+                this.gameObject.layer = LayerMask.NameToLayer("Dead");
+                this.collider2d.enabled = false; // This resolves a bug whewre new Layers aren't respected immediately
+                this.collider2d.enabled = true;
                 StopMoving();
                 break;
         }
@@ -220,6 +225,16 @@ public class UnitScript : MonoBehaviour
                 break;
 
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        HealthScript target = collision.gameObject.GetComponent<HealthScript>();
+        if (target != null && target.team != myTeam && !target.dead)
+        {
+            EnemyDetected(); // TODO: Check if thing is unit from other team
+        }
+            
     }
 
     #endregion
