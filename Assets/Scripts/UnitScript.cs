@@ -8,7 +8,6 @@ public class UnitScript : MonoBehaviour
     public int facing = 1; // 1: faces rightward. -1 = leftward.
     public string kPrefix = "";
 
-    // public float walkSpeed = 1f; // Might just use movescript values for this
     public float attackInterval = 1f;
     public float initialIdleTime = 0.5f;
     public bool alwaysAttack = false;
@@ -42,9 +41,14 @@ public class UnitScript : MonoBehaviour
     public int myTeam;
 
     float stateStartTime;
+    float lastAttackTime;
     float timeInState
     {
         get { return Time.time - stateStartTime; }
+    }
+    float timeSinceLastAttack
+    {
+        get { return Time.time - lastAttackTime; }
     }
 
     private string kIdleAnim = "Idle";
@@ -101,11 +105,6 @@ public class UnitScript : MonoBehaviour
         AudioSource.PlayClipAtPoint(soundArray[i], transform.position, volume);
     }
 
-    public void EnemyDetected() // Used to trigger range-limited attacks like melee attacks
-    {
-        if (state == State.Idle || state == State.Walking) EnterState(State.Attacking);
-    }
-
     public void Die()
     {
         EnterState(State.Dying);
@@ -128,6 +127,13 @@ public class UnitScript : MonoBehaviour
         var newAttackShotScript = newAttack.GetComponent<ShotScript>();
         newAttackShotScript.team = myTeam;
         newAttackShotScript.damage = attackDamage;
+    }
+
+    void EnemyDetected() // Used to trigger range-limited attacks like melee attacks
+    {
+        if (timeSinceLastAttack >= attackInterval && (state == State.Idle || state == State.Walking))
+            
+            EnterState(State.Attacking);
     }
 
     void StopMoving()
@@ -168,13 +174,12 @@ public class UnitScript : MonoBehaviour
                 break;
             case State.Attacking:
                 animator.Play(kAttackingAnim);
+                lastAttackTime = Time.time;
                 StopMoving();
                 break;
             case State.Dying:
                 animator.Play(kDyingAnim);
-                this.gameObject.layer = LayerMask.NameToLayer("Dead");
-                this.collider2d.enabled = false; // This resolves a bug whewre new Layers aren't respected immediately
-                this.collider2d.enabled = true;
+                gameObject.layer = LayerMask.NameToLayer("Dead");
                 StopMoving();
                 break;
         }
@@ -208,14 +213,20 @@ public class UnitScript : MonoBehaviour
                     EnterState(State.Attacking);
                     break;
                 }
-                // TODO: Code here to detect if target is in range and attack for those not on auto-fire
                     break;
 
             case State.Attacking:
-                // If attack animation played out fully, back to walking.
+                // If attack animation played out fully, back to walking if auto-attacker, else idle if melee attacker
                 if (!AnimatorIsPlaying())
                 {
-                    EnterState(State.Walking);
+                    if (alwaysAttack)
+                    {
+                        EnterState(State.Walking);
+                    } else
+                    {
+                        EnterState(State.Idle);
+                    }
+                    
                 }
                 break;
 
@@ -232,7 +243,7 @@ public class UnitScript : MonoBehaviour
         HealthScript target = collision.gameObject.GetComponent<HealthScript>();
         if (target != null && target.team != myTeam && !target.dead)
         {
-            EnemyDetected(); // TODO: Check if thing is unit from other team
+            EnemyDetected();
         }
             
     }
