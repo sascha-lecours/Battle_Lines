@@ -127,13 +127,16 @@ public class UnitScript : MonoBehaviour
         var newAttackShotScript = newAttack.GetComponent<ShotScript>();
         newAttackShotScript.team = myTeam;
         newAttackShotScript.damage = attackDamage;
+        lastAttackTime = Time.time;
     }
 
     void EnemyDetected() // Used to trigger range-limited attacks like melee attacks
     {
+        StopMoving();
         if (timeSinceLastAttack >= attackInterval && (state == State.Idle || state == State.Walking))
-            
+        {
             EnterState(State.Attacking);
+        }
     }
 
     void StopMoving()
@@ -174,7 +177,6 @@ public class UnitScript : MonoBehaviour
                 break;
             case State.Attacking:
                 animator.Play(kAttackingAnim);
-                lastAttackTime = Time.time;
                 StopMoving();
                 break;
             case State.Dying:
@@ -197,18 +199,18 @@ public class UnitScript : MonoBehaviour
                 // Transition to start moving or attacking
                 if (timeInState >= initialIdleTime)
                 {
-                    if (alwaysAttack)
+                    if(alwaysAttack && timeSinceLastAttack >= attackInterval)
                     {
                         EnterState(State.Attacking);
                         break;
-                    }
-                    EnterState(State.Walking);
+                    } 
+                        EnterState(State.Walking);
                 }
                 break;
 
             case State.Walking:
                 // Transition to attacking, maybe go idle if encounter obstacle?
-                if (alwaysAttack && timeInState >= attackInterval)
+                if (alwaysAttack && timeSinceLastAttack >= attackInterval)
                 {
                     EnterState(State.Attacking);
                     break;
