@@ -309,15 +309,20 @@ PrefabInstance:
       propertyPath: facing
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 142818926345617786, guid: 21595a41c86a37740a9f89daf0211a77,
+        type: 3}
+      propertyPath: attackInterval
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 142818926345617790, guid: 21595a41c86a37740a9f89daf0211a77,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.296
+      value: -0.891
       objectReference: {fileID: 0}
     - target: {fileID: 142818926345617790, guid: 21595a41c86a37740a9f89daf0211a77,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.911
+      value: 0.905
       objectReference: {fileID: 0}
     - target: {fileID: 142818926345617790, guid: 21595a41c86a37740a9f89daf0211a77,
         type: 3}
@@ -894,12 +899,12 @@ PrefabInstance:
     - target: {fileID: 2376074482495352043, guid: 2d449b1c29bbb7747bc50d138974a54b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.842
+      value: -0.114
       objectReference: {fileID: 0}
     - target: {fileID: 2376074482495352043, guid: 2d449b1c29bbb7747bc50d138974a54b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.888
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 2376074482495352043, guid: 2d449b1c29bbb7747bc50d138974a54b,
         type: 3}

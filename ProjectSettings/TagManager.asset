@@ -50,6 +50,9 @@ TagManager:
   - name: Background_Accent_top
     uniqueID: 4065237765
     locked: 0
+  - name: Corpses
+    uniqueID: 795434785
+    locked: 0
   - name: Units
     uniqueID: 165782277
     locked: 0

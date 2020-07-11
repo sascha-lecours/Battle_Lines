@@ -73,6 +73,7 @@ public class UnitScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // ##TODO; change move speed by a small random fraction to help units separate?
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         ms = GetComponent<MoveScript>();
@@ -130,7 +131,7 @@ public class UnitScript : MonoBehaviour
         lastAttackTime = Time.time;
     }
 
-    void EnemyDetected() // Used to trigger range-limited attacks like melee attacks
+    void EnemyDetected() // Used to trigger range-limited attacks like melee attacks, and to stop when bumping into an enemy
     {
         StopMoving();
         if (timeSinceLastAttack >= attackInterval && (state == State.Idle || state == State.Walking))
@@ -203,8 +204,9 @@ public class UnitScript : MonoBehaviour
                     {
                         EnterState(State.Attacking);
                         break;
-                    } 
-                        EnterState(State.Walking);
+                    }
+                    // Todo: Prevent this part from happening if in contact w/ enemy?
+                    EnterState(State.Walking);
                 }
                 break;
 
