@@ -26,8 +26,8 @@ public class UnitScript : MonoBehaviour
     public AudioClip[] deathSounds;
     public float deathVolume = 1f;
 
-    
-    
+    public int myTeam;
+
 
     #endregion
 
@@ -37,8 +37,11 @@ public class UnitScript : MonoBehaviour
     MoveScript ms;
     HealthScript hs;
     Collider2D collider2d;
+    SpriteRenderer sr;
 
-    public int myTeam;
+    string corpseSortingLayer = "Corpses";
+
+   
 
     float stateStartTime;
     float lastAttackTime;
@@ -79,6 +82,7 @@ public class UnitScript : MonoBehaviour
         ms = GetComponent<MoveScript>();
         hs = GetComponent<HealthScript>();
         collider2d = GetComponent<Collider2D>();
+        sr = GetComponent<SpriteRenderer>();
 
         myTeam = hs.team;
 
@@ -108,6 +112,9 @@ public class UnitScript : MonoBehaviour
 
     public void Die()
     {
+        Debug.Log(sr.sortingOrder);
+        sr.sortingLayerName = corpseSortingLayer;
+        Debug.Log(sr.sortingOrder);
         EnterState(State.Dying);
     }
     #endregion
