@@ -113,7 +113,7 @@ public class UnitScript : MonoBehaviour
     public void Die()
     {
         Debug.Log(sr.sortingOrder);
-        sr.sortingLayerName = corpseSortingLayer;
+        sr.sortingLayerName  = corpseSortingLayer;
         Debug.Log(sr.sortingOrder);
         EnterState(State.Dying);
     }
