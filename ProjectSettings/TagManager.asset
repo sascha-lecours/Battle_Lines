@@ -59,3 +59,6 @@ TagManager:
   - name: Shots
     uniqueID: 2327114583
     locked: 0
+  - name: Healthbars
+    uniqueID: 260709419
+    locked: 0

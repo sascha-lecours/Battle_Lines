@@ -13,6 +13,7 @@ public class HealthScript : MonoBehaviour
     public bool manualActivation = false; // Used for bosses etc. to prevent activation by the usual method
     public bool immuneToShots = false;
     public bool dead = false;
+    public int maxHp = 1; // Set when initialized
 
     public Transform deathExplosion;
 
@@ -23,7 +24,7 @@ public class HealthScript : MonoBehaviour
     private float lifeTimer = 0f;
     private float flashInterval = 0.1f;
     private float fadeLifetime = 0.5f; // Amount of time (s) after going offscreen to continue existing
-    private int maxHp = 1;
+    
     private UnitScript unitScript;
 
     void Start()
