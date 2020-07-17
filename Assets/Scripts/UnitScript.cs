@@ -112,9 +112,7 @@ public class UnitScript : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log(sr.sortingOrder);
         sr.sortingLayerName  = corpseSortingLayer;
-        Debug.Log(sr.sortingOrder);
         EnterState(State.Dying);
     }
     #endregion
@@ -227,17 +225,9 @@ public class UnitScript : MonoBehaviour
                     break;
 
             case State.Attacking:
-                // If attack animation played out fully, back to walking if auto-attacker, else idle if melee attacker
                 if (!AnimatorIsPlaying())
                 {
-                    if (alwaysAttack)
-                    {
-                        EnterState(State.Walking);
-                    } else
-                    {
                         EnterState(State.Idle);
-                    }
-                    
                 }
                 break;
 

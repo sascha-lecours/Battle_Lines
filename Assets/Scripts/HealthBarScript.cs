@@ -19,7 +19,7 @@ public class HealthBarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthFraction = ((float)myHealthScript.hp / (float)myHealthScript.maxHp);
+        healthFraction = (Mathf.Max(0, (float)myHealthScript.hp) / (float)myHealthScript.maxHp);
         localScale.x = healthFraction * scaleFactor;
         transform.localScale = localScale;
     }
