@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0fc6bdbbf4bc146a9dddafbc2ead9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Cavalier
   facing: 1
   kPrefix: Cavalier
   attackInterval: 0.8
@@ -264,6 +265,7 @@ MonoBehaviour:
     type: 3}
   attackOffset: {x: 0.08, y: 0, z: 0}
   attackDamage: 2
+  specialText: Fast moving, strong but infrequent attacks
   hurtSounds: []
   hurtVolume: 1
   attackSounds: []

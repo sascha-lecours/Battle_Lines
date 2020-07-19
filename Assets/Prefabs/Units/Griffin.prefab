@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0fc6bdbbf4bc146a9dddafbc2ead9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Gryphon
   facing: 1
   kPrefix: Griffin
   attackInterval: 0.6
@@ -264,6 +265,7 @@ MonoBehaviour:
     type: 3}
   attackOffset: {x: 0.08, y: 0, z: 0}
   attackDamage: 3
+  specialText: Fast and damaging
   hurtSounds: []
   hurtVolume: 1
   attackSounds: []

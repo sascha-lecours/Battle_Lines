@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitScript : MonoBehaviour
 {
     #region Public Properties
+    public string name = "";
     public int facing = 1; // 1: faces rightward. -1 = leftward.
     public string kPrefix = "";
 
@@ -15,6 +16,8 @@ public class UnitScript : MonoBehaviour
     public Transform attackTransform;
     public Vector3 attackOffset = new Vector3(0.05f, 0, 0);
     public int attackDamage = 1;
+
+    public string specialText = "";
 
 
     public AudioClip[] hurtSounds;

@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0fc6bdbbf4bc146a9dddafbc2ead9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Troll
   facing: 1
   kPrefix: Troll
   attackInterval: 4.5
@@ -264,6 +265,7 @@ MonoBehaviour:
     type: 3}
   attackOffset: {x: 0.05, y: 0.05, z: 0}
   attackDamage: 4
+  specialText: Heavy-hitting ranged attacks
   hurtSounds: []
   hurtVolume: 1
   attackSounds: []

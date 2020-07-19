@@ -9,8 +9,11 @@ public class CardScript : MonoBehaviour
     public Image cardImage;
     public string cardName;
     public Transform spawnSubject;
+    public Text title;
     public Text cardText;
+
     #endregion
+
 
     #region Private Properties
     private UnitScript us;
@@ -19,9 +22,18 @@ public class CardScript : MonoBehaviour
 
     private int hp;
     private float speed;
-    private string specialText;
+    private int damage;
+    private float dps;
+    private string specialText = "Special text here!";
     private int cost = 0;
+
     #endregion
+
+    string cardScriptTemplate
+    {
+        get { return "HP: " + hp + " DPS: " + dps + "\n" + specialText; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,8 +43,16 @@ public class CardScript : MonoBehaviour
             hs = spawnSubject.GetComponent<HealthScript>();
             ms = spawnSubject.GetComponent<MoveScript>();
             cardImage.sprite = spawnSubject.GetComponent<SpriteRenderer>().sprite;
-            
+            hp = hs.hp;
+            speed = ms.speed.x;
+            specialText = us.specialText;
+            damage = us.attackDamage;
+            dps = us.attackDamage / us.attackInterval;
+            dps = Mathf.Round(dps * 100f) / 100f;
+            cardText.text = cardScriptTemplate;
+            title.text = us.name;
             // TODO: get cost from unitscript
+
         }
 
 
