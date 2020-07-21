@@ -192,6 +192,7 @@ public class UnitScript : MonoBehaviour
                 animator.Play(kDyingAnim);
                 gameObject.layer = LayerMask.NameToLayer("Dead");
                 StopMoving();
+                ms.speed = new Vector2(0, 0);
                 break;
         }
 
