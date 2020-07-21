@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShotScript : MonoBehaviour
 {
     public int damage = 1;
-
+    public bool isMelee = false;
 
     public int team = 0;
 

@@ -11,6 +11,7 @@ public class HealthScript : MonoBehaviour
     public int team = 0;
     public bool active = false;
     public bool manualActivation = false; // Used for bosses etc. to prevent activation by the usual method
+    public bool immuneToDamage = false;
     public bool immuneToShots = false;
     public bool dead = false;
     public int maxHp = 1; // Set when initialized
@@ -83,10 +84,10 @@ public class HealthScript : MonoBehaviour
     {
         // Is this a shot?
         ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();
-        if (shot != null && !immuneToShots && !dead)
+        if (shot != null && !immuneToDamage && !dead)
         {
-            // Avoid friendly fire
-            if (shot.team != team)
+            // Avoid friendly fire, apply ranged immunity
+            if ((!(immuneToShots && !shot.isMelee)) && shot.team != team)
             {
                 Damage(shot.damage);
                 shot.onImpact(gameObject.transform);

@@ -258,7 +258,7 @@ MonoBehaviour:
   name: Ghost
   facing: 1
   kPrefix: Ghost
-  attackInterval: 0.5
+  attackInterval: 0.9
   initialIdleTime: 1
   alwaysAttack: 1
   attackTransform: {fileID: 3208659497091545890, guid: c4bfe68cb867ed84fbcec53322f3fc44,
@@ -291,6 +291,7 @@ MonoBehaviour:
   team: 1
   active: 1
   manualActivation: 0
+  immuneToDamage: 0
   immuneToShots: 0
   dead: 0
   maxHp: 1
