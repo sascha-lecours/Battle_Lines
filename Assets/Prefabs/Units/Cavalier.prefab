@@ -255,9 +255,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0fc6bdbbf4bc146a9dddafbc2ead9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Cavalier
+  unitName: Cavalier
   facing: 1
   kPrefix: Cavalier
+  cost: 1
   attackInterval: 0.8
   initialIdleTime: 1
   alwaysAttack: 0
@@ -275,6 +276,7 @@ MonoBehaviour:
   deathSounds: []
   deathVolume: 1
   myTeam: 0
+  isBuilding: 0
 --- !u!114 &808640405463232687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +293,7 @@ MonoBehaviour:
   team: 1
   active: 1
   manualActivation: 0
+  immuneToDamage: 0
   immuneToShots: 0
   dead: 0
   maxHp: 1

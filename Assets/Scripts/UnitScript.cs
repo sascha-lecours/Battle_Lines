@@ -5,10 +5,11 @@ using UnityEngine;
 public class UnitScript : MonoBehaviour
 {
     #region Public Properties
-    public string name = "";
+    public string unitName = "";
     public int facing = 1; // 1: faces rightward. -1 = leftward.
     public string kPrefix = "";
 
+    public int cost = 0;
     public float attackInterval = 1f;
     public float initialIdleTime = 0.5f;
     public bool alwaysAttack = false;
@@ -16,6 +17,7 @@ public class UnitScript : MonoBehaviour
     public Transform attackTransform;
     public Vector3 attackOffset = new Vector3(0.05f, 0, 0);
     public int attackDamage = 1;
+    public int capturePower = 1;
 
     public string specialText = "";
 
@@ -30,7 +32,7 @@ public class UnitScript : MonoBehaviour
     public float deathVolume = 1f;
 
     public int myTeam;
-
+    public bool isBuilding = false;
 
     #endregion
 
@@ -123,6 +125,12 @@ public class UnitScript : MonoBehaviour
     bool AnimatorIsPlaying()
     {
         return animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
+    }
+
+    public void onCapture()
+    {
+        // Destroy self without dying - you've captured a building
+        Destroy(gameObject);
     }
 
 

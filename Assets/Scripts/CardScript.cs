@@ -11,6 +11,7 @@ public class CardScript : MonoBehaviour
     public Transform spawnSubject;
     public Text title;
     public Text cardText;
+    public Text cardCost;
 
     #endregion
 
@@ -44,14 +45,15 @@ public class CardScript : MonoBehaviour
             ms = spawnSubject.GetComponent<MoveScript>();
             cardImage.sprite = spawnSubject.GetComponent<SpriteRenderer>().sprite;
             hp = hs.hp;
+            cost = us.cost;
             speed = ms.speed.x;
             specialText = us.specialText;
             damage = us.attackDamage;
             dps = us.attackDamage / us.attackInterval;
             dps = Mathf.Round(dps * 100f) / 100f;
             cardText.text = cardScriptTemplate;
-            title.text = us.name;
-            // TODO: get cost from unitscript
+            title.text = us.unitName;
+            cardCost.text = cost.ToString();
 
         }
 

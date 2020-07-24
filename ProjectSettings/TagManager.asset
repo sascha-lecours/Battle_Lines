@@ -53,6 +53,9 @@ TagManager:
   - name: Corpses
     uniqueID: 795434785
     locked: 0
+  - name: Buildings
+    uniqueID: 3042684093
+    locked: 0
   - name: Units
     uniqueID: 165782277
     locked: 0

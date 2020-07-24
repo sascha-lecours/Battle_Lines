@@ -255,9 +255,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0fc6bdbbf4bc146a9dddafbc2ead9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Ghost
+  unitName: Ghost
   facing: 1
   kPrefix: Ghost
+  cost: 1
   attackInterval: 0.9
   initialIdleTime: 1
   alwaysAttack: 1
@@ -275,6 +276,7 @@ MonoBehaviour:
   deathSounds: []
   deathVolume: 1
   myTeam: 0
+  isBuilding: 0
 --- !u!114 &4165431461292837934
 MonoBehaviour:
   m_ObjectHideFlags: 0

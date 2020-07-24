@@ -255,9 +255,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0fc6bdbbf4bc146a9dddafbc2ead9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Titan
+  unitName: Titan
   facing: 1
   kPrefix: Titan
+  cost: 5
   attackInterval: 1
   initialIdleTime: 1
   alwaysAttack: 0
@@ -275,6 +276,7 @@ MonoBehaviour:
   deathSounds: []
   deathVolume: 1
   myTeam: 0
+  isBuilding: 0
 --- !u!114 &814230240908149009
 MonoBehaviour:
   m_ObjectHideFlags: 0
