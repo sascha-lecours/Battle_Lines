@@ -32,7 +32,6 @@ public class UnitScript : MonoBehaviour
     public float deathVolume = 1f;
 
     public int myTeam;
-    public bool isBuilding = false;
 
     #endregion
 
@@ -259,6 +258,15 @@ public class UnitScript : MonoBehaviour
             EnemyDetected();
         }
             
+    }
+
+    void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        var building = otherCollider.GetComponent<BuildingScript>();
+        if (building != null)
+        {
+            building.getCaptured(this);
+        }
     }
 
     #endregion

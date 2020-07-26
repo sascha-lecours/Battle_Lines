@@ -6,6 +6,8 @@ public class BuildingScript : MonoBehaviour
 {
     public int captureHealth = 3;
     public int team = 1;
+    public Transform mySpawnPoint;
+    public Transform testUnit;
 
     public int maxCaptureHealth = 0;
 
@@ -13,11 +15,22 @@ public class BuildingScript : MonoBehaviour
     void Start()
     {
         maxCaptureHealth = captureHealth;
+        spawnUnit(testUnit);
     }
 
     void Capture(int capturePower)
     {
         captureHealth -= capturePower; // TODO: Move to its own method?
+    }
+
+    void spawnUnit(Transform unit)
+    {
+        var newSpawn = Instantiate(unit) as Transform;
+        var us = newSpawn.GetComponent<UnitScript>();
+        var hs = newSpawn.GetComponent<HealthScript>();
+        hs.team = team;
+        newSpawn.position = mySpawnPoint.transform.position;
+        
     }
 
     // Update is called once per frame
@@ -26,18 +39,12 @@ public class BuildingScript : MonoBehaviour
         
     }
 
-    void OnTriggerEnter2D(Collider2D otherCollider)
+    public void getCaptured(UnitScript capturer)
     {
-        // Is this a shot?
-        UnitScript unit = otherCollider.gameObject.GetComponent<UnitScript>();
-        if (unit != null)
+        if (capturer.myTeam != team)
         {
-            // Avoid friendly fire, apply ranged immunity
-            if (unit.myTeam != team)
-            {
-                Capture(unit.capturePower);
-                unit.onCapture();
-            }
+            Capture(capturer.capturePower);
+            capturer.onCapture();
         }
     }
 }

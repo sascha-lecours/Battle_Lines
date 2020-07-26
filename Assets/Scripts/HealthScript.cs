@@ -35,6 +35,17 @@ public class HealthScript : MonoBehaviour
         matDefault = sr.material;
         maxHp = hp;
         unitScript = GetComponent<UnitScript>();
+        if (team == 1)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Team 1 Units");
+        } else if (team == 2)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Team 2 Units");
+        } else
+        {
+            Debug.Log("Invalid team layer!");
+        }
+
     }
 
     void fadeAway() // No death explosion
