@@ -13,6 +13,9 @@ public class CardScript : MonoBehaviour
     public Text cardText;
     public Text cardCost;
 
+
+    public Transform testBuilding; // TESTING ONLY
+
     #endregion
 
 
@@ -56,6 +59,10 @@ public class CardScript : MonoBehaviour
             cardCost.text = cost.ToString();
 
         }
+
+        // TESTING ONLY:
+        var bs = testBuilding.GetComponent<BuildingScript>(); // TESTING ONLY
+        bs.spawnUnit(spawnSubject); // This is just for testing
 
 
 

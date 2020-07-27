@@ -7,7 +7,6 @@ public class BuildingScript : MonoBehaviour
     public int captureHealth = 3;
     public int team = 1;
     public Transform mySpawnPoint;
-    public Transform testUnit;
 
     public int maxCaptureHealth = 0;
 
@@ -15,7 +14,6 @@ public class BuildingScript : MonoBehaviour
     void Start()
     {
         maxCaptureHealth = captureHealth;
-        spawnUnit(testUnit);
     }
 
     void Capture(int capturePower)
@@ -23,7 +21,7 @@ public class BuildingScript : MonoBehaviour
         captureHealth -= capturePower; // TODO: Move to its own method?
     }
 
-    void spawnUnit(Transform unit)
+    public void spawnUnit(Transform unit)
     {
         var newSpawn = Instantiate(unit) as Transform;
         var us = newSpawn.GetComponent<UnitScript>();

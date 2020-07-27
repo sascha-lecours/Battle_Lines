@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7652427914735041169}
   - component: {fileID: 4165431461292837934}
   - component: {fileID: 5134850416319757527}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 165782277
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9db023729bb88694384de34c619a59c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -261,11 +261,12 @@ MonoBehaviour:
   cost: 1
   attackInterval: 0.9
   initialIdleTime: 1
-  alwaysAttack: 1
+  alwaysAttack: 0
   attackTransform: {fileID: 3208659497091545890, guid: c4bfe68cb867ed84fbcec53322f3fc44,
     type: 3}
   attackOffset: {x: 0.08, y: 0, z: 0}
   attackDamage: 2
+  capturePower: 1
   specialText: Immune to projectiles
   hurtSounds: []
   hurtVolume: 1
@@ -276,7 +277,6 @@ MonoBehaviour:
   deathSounds: []
   deathVolume: 1
   myTeam: 0
-  isBuilding: 0
 --- !u!114 &4165431461292837934
 MonoBehaviour:
   m_ObjectHideFlags: 0
