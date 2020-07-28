@@ -12,9 +12,8 @@ public class CardScript : MonoBehaviour
     public Text title;
     public Text cardText;
     public Text cardCost;
+    public Text myButton;
 
-
-    public Transform testBuilding; // TESTING ONLY
 
     #endregion
 
@@ -38,6 +37,11 @@ public class CardScript : MonoBehaviour
         get { return "HP: " + hp + " DPS: " + dps + "\n" + specialText; }
     }
 
+    public void SetButton(string newButtonText)
+    {
+        myButton.text = newButtonText;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,10 +63,6 @@ public class CardScript : MonoBehaviour
             cardCost.text = cost.ToString();
 
         }
-
-        // TESTING ONLY:
-        var bs = testBuilding.GetComponent<BuildingScript>(); // TESTING ONLY
-        bs.spawnUnit(spawnSubject); // This is just for testing
 
 
 
