@@ -11,7 +11,18 @@ public class PlayerScript : MonoBehaviour
     public string[] myButtons;
     public GameObject[] myCards;
 
-    private int nextAvailableButtonIndex = 0;
+    enum State
+    {
+        CardSelection,
+        PlacingCard
+    }
+    State state;
+
+    float stateStartTime;
+    float timeInState
+    {
+        get { return Time.time - stateStartTime; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +40,50 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Update state
+        ContinueState();
+    }
+
+    void SetOrKeepState(State state)
+    {
+        if (this.state == state) return;
+        EnterState(state);
+    }
+
+    void ExitState()
+    {
+    }
+
+    void EnterState(State state)
+    {
+        ExitState();
+        switch (state)
+        {
+            case State.CardSelection:
+                // Display card selection buttons, grey out building buttons.
+                break;
+            case State.PlacingCard:
+                // Grey out card selection buttons, Set buildings to display buttons.
+                break;
+        }
+
+        this.state = state;
+        stateStartTime = Time.time;
+    }
+
+    void ContinueState()
+    {
+        switch (state)
+        {
+
+            case State.CardSelection:
+                // Take input to select card, transition to placement.
+                break;
+
+            case State.PlacingCard:
+                // Choose a lane, if applicable. 
+                // Also take input to cancel and return to selection.
+                break;
+        }
     }
 }

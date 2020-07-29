@@ -138,7 +138,7 @@ public class UnitScript : MonoBehaviour
         var newAttack = Instantiate(attackTransform) as Transform;
         newAttack.position = transform.position + new Vector3(attackOffset.x*facing, attackOffset.y, attackOffset.z);
         var newAttackMoveScript = newAttack.GetComponent<MoveScript>();
-        newAttackMoveScript.direction = new Vector2(facing, 0); // TODO: this will need to eventually handle vertical attacks too.
+        newAttackMoveScript.direction = new Vector2(facing, 0); // TODO: this may need to eventually handle vertical attacks too.
 
         var newAttackShotScript = newAttack.GetComponent<ShotScript>();
         newAttackShotScript.team = myTeam;
