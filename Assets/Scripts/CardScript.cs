@@ -13,6 +13,7 @@ public class CardScript : MonoBehaviour
     public Text cardText;
     public Text cardCost;
     public Text myButton;
+    public bool selected = false;
 
 
     #endregion
@@ -23,6 +24,7 @@ public class CardScript : MonoBehaviour
     private HealthScript hs;
     private MoveScript ms;
 
+    private Outline outline;
     private int hp;
     private float speed;
     private int damage;
@@ -51,6 +53,7 @@ public class CardScript : MonoBehaviour
             hs = spawnSubject.GetComponent<HealthScript>();
             ms = spawnSubject.GetComponent<MoveScript>();
             cardImage.sprite = spawnSubject.GetComponent<SpriteRenderer>().sprite;
+            outline = GetComponent<Outline>();
             hp = hs.hp;
             cost = us.cost;
             speed = ms.speed.x;
@@ -72,6 +75,12 @@ public class CardScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (selected && !outline.enabled)
+        {
+            outline.enabled = true;
+        } else if (!selected && outline.enabled)
+        {
+            outline.enabled = false;
+        }
     }
 }

@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour
     public string button4 = "4";
     public string[] myButtons;
     public GameObject[] myCards;
+    public GameObject selectedCard;
 
     enum State
     {
@@ -44,6 +45,13 @@ public class PlayerScript : MonoBehaviour
         ContinueState();
     }
 
+    void SelectCard(GameObject card)
+    {
+        var selCardScript = card.GetComponent<CardScript>();
+        selCardScript.selected = true;
+        selectedCard = card;
+    }
+
     void SetOrKeepState(State state)
     {
         if (this.state == state) return;
@@ -61,6 +69,7 @@ public class PlayerScript : MonoBehaviour
         {
             case State.CardSelection:
                 // Display card selection buttons, grey out building buttons.
+                // Set SelectedCard to null.
                 break;
             case State.PlacingCard:
                 // Grey out card selection buttons, Set buildings to display buttons.
@@ -77,12 +86,23 @@ public class PlayerScript : MonoBehaviour
         {
 
             case State.CardSelection:
-                // Take input to select card, transition to placement.
+                // Take input to select card
+                for (var i = 0; i < myCards.Length; i++)
+                {
+                    if (Input.GetKeyDown(myButtons[i])) {
+                        // TODO: Check if can afford selected card, off cooldown, etc.
+                        SelectCard(myCards[i]);
+                        // transition to placement here
+                    }
+                }
+                
+                
                 break;
 
             case State.PlacingCard:
-                // Choose a lane, if applicable. 
+                // Choose a lane, if applicable.
                 // Also take input to cancel and return to selection.
+                // Once a lane is chosen, spawn the unit, update the cooldown/greyed out status of the card if applicable, deduct cost
                 break;
         }
     }
