@@ -8,9 +8,13 @@ public class PlayerScript : MonoBehaviour
     public string button2 = "2";
     public string button3 = "3";
     public string button4 = "4";
+    public string cancelButton = "q";
     public string[] myButtons;
     public GameObject[] myCards;
+    public GameObject[] myBuildings;
     public GameObject selectedCard;
+
+    private BuildingScript[] myBuildingScripts = { null, null, null }; 
 
     enum State
     {
@@ -34,6 +38,10 @@ public class PlayerScript : MonoBehaviour
             var cs = myCards[i].GetComponent<CardScript>() as CardScript;
             cs.SetButton(myButtons[i]);
         }
+        for(var i = 0; i < myBuildings.Length; i++)
+        {
+            myBuildingScripts[i] = myBuildings[i].GetComponent<BuildingScript>() as BuildingScript;
+        }
     }
 
 
@@ -47,6 +55,7 @@ public class PlayerScript : MonoBehaviour
 
     void SelectCard(GameObject card)
     {
+        UnselectCard();
         var selCardScript = card.GetComponent<CardScript>();
         selCardScript.selected = true;
         selectedCard = card;
@@ -56,6 +65,16 @@ public class PlayerScript : MonoBehaviour
     {
         if (this.state == state) return;
         EnterState(state);
+    }
+
+    void UnselectCard()
+    {
+        if(selectedCard != null)
+        {
+            var selCardScript = selectedCard.GetComponent<CardScript>();
+            selCardScript.selected = false;
+            selectedCard = null;
+        }
     }
 
     void ExitState()
@@ -69,7 +88,7 @@ public class PlayerScript : MonoBehaviour
         {
             case State.CardSelection:
                 // Display card selection buttons, grey out building buttons.
-                // Set SelectedCard to null.
+                UnselectCard();
                 break;
             case State.PlacingCard:
                 // Grey out card selection buttons, Set buildings to display buttons.
@@ -92,7 +111,7 @@ public class PlayerScript : MonoBehaviour
                     if (Input.GetKeyDown(myButtons[i])) {
                         // TODO: Check if can afford selected card, off cooldown, etc.
                         SelectCard(myCards[i]);
-                        // transition to placement here
+                        EnterState(State.PlacingCard);
                     }
                 }
                 
@@ -100,8 +119,21 @@ public class PlayerScript : MonoBehaviour
                 break;
 
             case State.PlacingCard:
-                // Choose a lane, if applicable.
-                // Also take input to cancel and return to selection.
+                // Take input to select lane
+                for (var i = 0; i < myBuildings.Length; i++)
+                {
+                    if (Input.GetKeyDown(myButtons[i]) && i < 3)
+                    {
+                        myBuildingScripts[i].spawnUnit(selectedCard.GetComponent<CardScript>().spawnSubject);
+                        EnterState(State.CardSelection);
+                        break;
+                    }
+                }
+
+                if (Input.GetKeyDown(cancelButton))
+                {
+                    EnterState(State.CardSelection);
+                }
                 // Once a lane is chosen, spawn the unit, update the cooldown/greyed out status of the card if applicable, deduct cost
                 break;
         }
