@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class PlayerScript : MonoBehaviour
     public GameObject[] myCards;
     public GameObject[] myBuildings;
     public GameObject selectedCard;
+    public int moneyPerTick = 4;
+    public float timePerMoneyTick = 3f;
+    public int currentMoney = 0;
+    private float moneyTimer = 0f;
+    public Text MoneyCounter;
 
     private BuildingScript[] myBuildingScripts = { null, null, null }; 
 
@@ -49,6 +55,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        incrementMoney();
         // Update state
         ContinueState();
     }
@@ -59,6 +66,22 @@ public class PlayerScript : MonoBehaviour
         var selCardScript = card.GetComponent<CardScript>();
         selCardScript.selected = true;
         selectedCard = card;
+    }
+
+    void incrementMoney()
+    {
+        moneyTimer += Time.deltaTime;
+        if(moneyTimer >= timePerMoneyTick)
+        {
+            currentMoney += moneyPerTick;
+            moneyTimer = 0;
+            updateMoneyCounter();
+        }
+    }
+
+    void updateMoneyCounter()
+    {
+        MoneyCounter.text = "$" + currentMoney;
     }
 
     void SetOrKeepState(State state)
@@ -75,6 +98,13 @@ public class PlayerScript : MonoBehaviour
             selCardScript.selected = false;
             selectedCard = null;
         }
+    }
+
+    void tryToSelectCard(GameObject card)
+    {
+        // If can afford, do this
+        SelectCard(card);
+        EnterState(State.PlacingCard);
     }
 
     void ExitState()
@@ -109,9 +139,8 @@ public class PlayerScript : MonoBehaviour
                 for (var i = 0; i < myCards.Length; i++)
                 {
                     if (Input.GetKeyDown(myButtons[i])) {
-                        // TODO: Check if can afford selected card, off cooldown, etc.
-                        SelectCard(myCards[i]);
-                        EnterState(State.PlacingCard);
+                        tryToSelectCard(myCards[i]);
+                        
                     }
                 }
                 
