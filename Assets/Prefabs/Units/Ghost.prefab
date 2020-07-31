@@ -294,7 +294,7 @@ MonoBehaviour:
   active: 1
   manualActivation: 0
   immuneToDamage: 0
-  immuneToShots: 0
+  immuneToShots: 1
   dead: 0
   maxHp: 1
   deathExplosion: {fileID: 0}
