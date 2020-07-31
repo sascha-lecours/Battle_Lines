@@ -102,13 +102,26 @@ public class PlayerScript : MonoBehaviour
 
     void tryToSelectCard(GameObject card)
     {
-        // If can afford, do this
-        SelectCard(card);
-        EnterState(State.PlacingCard);
+        var toSpawn = card.GetComponent<CardScript>().spawnSubject;
+        var us = toSpawn.GetComponent<UnitScript>() as UnitScript;
+        if (currentMoney >= us.cost)
+        {
+            SelectCard(card);
+            EnterState(State.PlacingCard);
+        }
+
+        // TODO - else play some sort of "nope" sound
+        
     }
 
     void ExitState()
     {
+    }
+
+    void PayForUnit(UnitScript us)
+    {
+        currentMoney -= us.cost;
+        updateMoneyCounter();
     }
 
     void EnterState(State state)
@@ -117,11 +130,11 @@ public class PlayerScript : MonoBehaviour
         switch (state)
         {
             case State.CardSelection:
-                // Display card selection buttons, grey out building buttons.
+                // TODO: Display card selection buttons, grey out building buttons.
                 UnselectCard();
                 break;
             case State.PlacingCard:
-                // Grey out card selection buttons, Set buildings to display buttons.
+                // TODO: Grey out card selection buttons, Set buildings to display buttons.
                 break;
         }
 
@@ -140,7 +153,6 @@ public class PlayerScript : MonoBehaviour
                 {
                     if (Input.GetKeyDown(myButtons[i])) {
                         tryToSelectCard(myCards[i]);
-                        
                     }
                 }
                 
@@ -153,6 +165,9 @@ public class PlayerScript : MonoBehaviour
                 {
                     if (Input.GetKeyDown(myButtons[i]) && i < 3)
                     {
+                        var toSpawn = selectedCard.GetComponent<CardScript>().spawnSubject;
+                        var us = toSpawn.GetComponent<UnitScript>() as UnitScript;
+                        PayForUnit(us);
                         myBuildingScripts[i].spawnUnit(selectedCard.GetComponent<CardScript>().spawnSubject);
                         EnterState(State.CardSelection);
                         break;
