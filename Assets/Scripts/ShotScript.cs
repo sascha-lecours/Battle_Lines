@@ -6,6 +6,7 @@ public class ShotScript : MonoBehaviour
 {
     public int damage = 1;
     public bool isMelee = false;
+    public bool penetrating = false;
 
     public int team = 0;
 
@@ -41,8 +42,12 @@ public class ShotScript : MonoBehaviour
         // Play impact sound
         myTargetHealthScript = target.gameObject.GetComponent<HealthScript>();
         if (myTargetHealthScript != null && myTargetHealthScript.active && !myTargetHealthScript.immuneToShots)
+        {
             // TODO: Sound effect here?
-
-        Destroy(gameObject);
+            if (!penetrating)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }
