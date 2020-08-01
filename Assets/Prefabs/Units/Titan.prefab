@@ -258,7 +258,7 @@ MonoBehaviour:
   unitName: Titan
   facing: 1
   kPrefix: Titan
-  cost: 5
+  cost: 6
   attackInterval: 1
   initialIdleTime: 2
   alwaysAttack: 0

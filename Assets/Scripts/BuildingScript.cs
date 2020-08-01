@@ -27,6 +27,10 @@ public class BuildingScript : MonoBehaviour
         var us = newSpawn.GetComponent<UnitScript>();
         var hs = newSpawn.GetComponent<HealthScript>();
         hs.team = team;
+        if (team == 2)
+        {
+            us.facing = -1;
+        }
         newSpawn.position = mySpawnPoint.transform.position;
         
     }
